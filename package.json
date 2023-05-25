@@ -1,13 +1,14 @@
 {
-  "name": "@lancejpollard/assert.js",
+  "name": "@tunebond/have",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "./host/index.js",
   "license": "MIT",
   "files": [
-    "./imports.d.ts",
     "./host/index.js",
-    "./host/index.d.ts"
+    "./host/index.d.ts",
+    "./host/halt.js",
+    "./host/halt.d.ts"
   ],
   "scripts": {
     "build": "tsc && tsc-alias",
@@ -42,7 +43,6 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "@lancejpollard/halt.js": "^0.0.6",
     "@types/uuid": "^9.0.1",
     "lodash": "^4.17.21",
     "uuid": "^9.0.0"

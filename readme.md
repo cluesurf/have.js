@@ -1,5 +1,5 @@
-# assert.js
+# have.js
 
 ```
-yarn add @lancejpollard/assert.js
+yarn add @tunebond/have
 ```

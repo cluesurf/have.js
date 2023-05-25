@@ -6,142 +6,128 @@
 import _ from 'lodash'
 import { validate } from 'uuid'
 
-import { Halt } from '@lancejpollard/halt.js'
+import halt from './halt.js'
 
-const host = '@lancejpollard/assert.js'
+export const LIST: Array<any> = []
 
-type Link = Record<string, unknown>
+export const MARK = 1
 
-const HALT = {
-  invalid_type: {
-    code: 2,
-    host,
-    note: ({ key, type }: Link) =>
-      `Value '${key}' is not '${type}' type`,
-  },
-  missing_property: {
-    code: 1,
-    host,
-    note: ({ key }: Link) => `Property '${key}' missing`,
-  },
-}
-
-export const ARRAY: Array<any> = []
-
-export const BOOLEAN = true
-
-Halt.list = { ...Halt.list, ...HALT }
-
-export { Halt }
-export type HaltType = typeof HALT
-
-export const NULL = null
-export const NUMBER = 1
-export const OBJECT: object = {}
-export const OBJECT_ARRAY: Array<object> = []
+export const MESH: object = {}
+export const MESH_LIST: Array<object> = []
 export const TEXT = ''
+export const VOID = null
+export const WAVE = true
 
-export function assertArray<T>(
-  x: unknown,
-  key: string,
-): asserts x is Array<T> {
-  if (!isArray(x)) {
-    throw new Halt('invalid_type', { key, type: 'array' })
+export function haveCode(
+  bond: unknown,
+  name: string,
+): asserts bond is string {
+  if (!testCode(bond)) {
+    throw halt('form_miss', { form: 'uuid', name })
   }
 }
 
-export function assertObject(
-  x: unknown,
-  key: string,
-): asserts x is Record<string, unknown> {
-  if (!isObject(x)) {
-    throw new Halt('invalid_type', { key, type: 'object' })
+export function haveForm<V>(
+  seed: unknown,
+  form: string,
+  test: (bond: any) => bond is V,
+  name: string,
+): asserts seed is V {
+  if (!test(seed)) {
+    throw halt('form_miss', { form, name })
   }
 }
 
-export function assertText(
-  x: unknown,
-  key: string,
-): asserts x is string {
-  if (!isText(x)) {
-    throw new Halt('invalid_type', { key, type: 'text' })
+export function haveList<T>(
+  bond: unknown,
+  name: string,
+): asserts bond is Array<T> {
+  if (!testList(bond)) {
+    throw halt('form_miss', { form: 'list', name })
   }
 }
 
-export function assertTree<Form>(
-  x: any,
-  type: string,
-  example: Form,
-  key: string,
-): asserts x is Form {
-  const typex = getType(x)
-  if (typex !== getType(example)) {
-    throw new Halt('invalid_type', { key, type })
+export function haveMesh(
+  bond: unknown,
+  name: string,
+): asserts bond is Record<string, unknown> {
+  if (!testMesh(bond)) {
+    throw halt('form_miss', { form: 'mesh', name })
+  }
+}
+
+export function haveText(
+  bond: unknown,
+  name: string,
+): asserts bond is string {
+  if (!testText(bond)) {
+    throw halt('form_miss', { form: 'text', name })
+  }
+}
+
+export function haveTree<Form>(
+  bond: any,
+  form: string,
+  test: Form,
+  name: string,
+): asserts bond is Form {
+  const formx = readForm(bond)
+  if (formx !== readForm(test)) {
+    throw halt('form_miss', { form, name })
   }
 
-  if (typex === 'object') {
-    for (const name in example) {
-      assertTree(x[name], type, example[name], key)
+  if (formx === 'object') {
+    for (const name in test) {
+      haveTree(bond[name], form, test[name], name)
     }
   }
 }
 
-export function assertType<V>(
-  seed: unknown,
-  type: string,
-  check: (x: any) => x is V,
+export function haveWave<T>(
+  bond: unknown,
   name: string,
-): asserts seed is V {
-  if (!check(seed)) {
-    throw new Halt('invalid_type', { name, type })
+): asserts bond is Array<T> {
+  if (!testWave(bond)) {
+    throw halt('form_miss', { form: 'wave', name })
   }
 }
 
-export function assertUUID(
-  x: unknown,
-  key: string,
-): asserts x is string {
-  if (!isUUID(x)) {
-    throw new Halt('invalid_type', { key, type: 'uuid' })
-  }
-}
-
-export function getType(x: any) {
-  const rawForm = typeof x
-  if (rawForm === 'object' && !x) {
+export function readForm(bond: any) {
+  const form = typeof bond
+  if (form === 'object' && !bond) {
     return 'null'
   }
-  if (Array.isArray(x)) {
+  if (Array.isArray(bond)) {
     return 'array'
   }
-  return rawForm
+  return form
 }
 
-export function isArray<T>(x: unknown): x is Array<T> {
-  return _.isArray(x)
+export function testCode(bond: unknown): bond is string {
+  return _.isString(bond) && validate(bond)
 }
 
-export function isBoolean<T>(x: unknown): x is boolean {
-  return _.isBoolean(x)
+export function testList<T>(bond: unknown): bond is Array<T> {
+  return _.isArray(bond)
 }
 
-export function isObject(x: unknown): x is object {
-  return _.isObject(x)
+export function testMesh(bond: unknown): bond is object {
+  return _.isObject(bond)
 }
 
-export function isText(x: unknown): x is string {
-  return _.isString(x)
+export function testText(bond: unknown): bond is string {
+  return _.isString(bond)
 }
 
-export function isTree<Form>(x: any, example: Form): x is Form {
-  const type = getType(x)
-  if (type !== getType(example)) {
+export function testTree<Form>(bond: any, test: Form): bond is Form {
+  const form = readForm(bond)
+  if (form !== readForm(test)) {
     return false
   }
 
-  if (type === 'object') {
-    for (const name in example) {
-      if (!isTree(x[name], example[name])) {
+  if (form === 'object') {
+    for (const name in test) {
+      if (!testTree(bond[name], test[name])) {
         return false
       }
     }
@@ -150,6 +136,6 @@ export function isTree<Form>(x: any, example: Form): x is Form {
   return true
 }
 
-export function isUUID(x: unknown): x is string {
-  return _.isString(x) && validate(x)
+export function testWave<T>(bond: unknown): bond is boolean {
+  return _.isBoolean(bond)
 }

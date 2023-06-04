@@ -8,6 +8,9 @@ dependencies:
   '@tunebond/halt':
     specifier: ^0.1.3
     version: 0.1.3
+  '@tunebond/tone-code':
+    specifier: ^0.1.0
+    version: 0.1.0
   '@types/uuid':
     specifier: ^9.0.1
     version: 9.0.1
@@ -444,6 +447,16 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
+  /@lancejpollard/configured-quadratic-residue-prng.js@1.0.0:
+    resolution: {integrity: sha512-TGKhTiD1v3aHCjfYnSkzW5VG4/r75RO8ZkSSIyFrlH0uXh+0s0w5ElUUZ1g9I3TYRceTV+ZdsnWvTAwxq/LppQ==}
+    dependencies:
+      '@lancejpollard/quadratic-residue-prng.js': 1.0.0
+    dev: false
+
+  /@lancejpollard/quadratic-residue-prng.js@1.0.0:
+    resolution: {integrity: sha512-njr7owTIRuTAncZeO5yZWZ2mBuSXZu0wqFqZsJm5gGcUKL+p+lyjOel+dKG3rouB0q//Nw1uYLa8foM89bnehQ==}
+    dev: false
+
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -516,6 +529,12 @@ packages:
     resolution: {integrity: sha512-QGw5Qn1FDpXXJgs5nZQSPnTQVxNTjq9WZy9Vh4nCFnQzgQSYvKO39o1r8FVJY+9qIXG/DSMnnEmmRYIT3NX18A==}
     dependencies:
       ts-custom-error: 3.3.1
+    dev: false
+
+  /@tunebond/tone-code@0.1.0:
+    resolution: {integrity: sha512-YbPjRDdJOkwTHPRkyutMIbIKT4rNWZyG/nXwZJfasLY8wlyvcEAFv0z+nCs1L+oe2jdJikOMU2A7gTBpL59GgA==}
+    dependencies:
+      '@lancejpollard/configured-quadratic-residue-prng.js': 1.0.0
     dev: false
 
   /@types/json-schema@7.0.11:

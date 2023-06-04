@@ -1,4 +1,5 @@
 import Halt, { Link } from '@tunebond/halt'
+import { make4 } from '@tunebond/tone-code'
 
 type HaveForm = {
   form: string
@@ -25,6 +26,8 @@ type Base = typeof base
 
 type Name = keyof Base
 
+export const code = (code: number) => make4(BigInt(code))
+
 export default function halt(form: Name, link: Link<Base, Name>) {
-  return new Halt({ base, form, host: '@tunebond/have', link })
+  return new Halt({ base, form, host: '@tunebond/have', link, code })
 }

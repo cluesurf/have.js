@@ -7,6 +7,7 @@ export type HaveBase = {
   call?: string
   lead?: unknown
   need?: Array<unknown> | unknown
+  void?: boolean
 }
 
 export type HaveHaltList = {
@@ -41,6 +42,10 @@ const base = {
   link_take: {
     code: 5,
     note: (link: HaveBase) => `Link provided invalid value.`,
+  },
+  list_miss: {
+    code: 4,
+    note: (link: HaveBase) => `List does not contain item.`,
   },
 }
 

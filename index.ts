@@ -18,6 +18,16 @@ export const TEXT = ''
 export const VOID = null
 export const WAVE = true
 
+export function haveBindList<T>(
+  lead: unknown,
+  list: ReadonlyArray<T>,
+  call: string,
+): asserts lead is T {
+  if (!testBindList(lead, list)) {
+    throw halt('list_miss', { call, need: list })
+  }
+}
+
 export function haveCode(
   lead: unknown,
   call: string,
@@ -44,6 +54,15 @@ export function haveList<T>(
 ): asserts lead is Array<T> {
   if (!testList(lead)) {
     throw halt('form_miss', { call, need: 'list' })
+  }
+}
+
+export function haveMark(
+  lead: unknown,
+  call: string,
+): asserts lead is number {
+  if (!testMark(lead)) {
+    throw halt('form_miss', { call, need: 'mark' })
   }
 }
 
@@ -112,12 +131,65 @@ export function readForm(lead: any) {
   return form
 }
 
+export function seekMark(
+  lead: unknown,
+  haveVoid: boolean,
+  call: string,
+) {
+  if (haveVoid) {
+    if (testVoid(lead) || testMark(lead)) {
+      return
+    } else {
+      throw halt('form_miss', { call, need: 'mark', void: true })
+    }
+  }
+}
+
+export function seekText(
+  lead: unknown,
+  haveVoid: boolean,
+  call: string,
+): asserts lead is string {
+  if (haveVoid) {
+    if (testVoid(lead) || testText(lead)) {
+      return
+    } else {
+      throw halt('form_miss', { call, need: 'text', void: true })
+    }
+  }
+}
+
+export function seekWave(
+  lead: unknown,
+  haveVoid: boolean,
+  call: string,
+) {
+  if (haveVoid) {
+    if (testVoid(lead) || testWave(lead)) {
+      return
+    } else {
+      throw halt('form_miss', { call, need: 'wave', void: true })
+    }
+  }
+}
+
+export function testBindList<T>(
+  lead: unknown,
+  list: ReadonlyArray<T>,
+): lead is T {
+  return list.includes(lead as T)
+}
+
 export function testCode(lead: unknown): lead is string {
   return _.isString(lead) && validate(lead)
 }
 
 export function testList<T>(lead: unknown): lead is Array<T> {
   return _.isArray(lead)
+}
+
+export function testMark(lead: unknown): lead is number {
+  return _.isNumber(lead)
 }
 
 export function testMesh(
@@ -149,6 +221,10 @@ export function testTree<Form>(lead: any, test: Form): lead is Form {
   }
 
   return true
+}
+
+export function testVoid(lead: unknown): lead is null | undefined {
+  return lead == null
 }
 
 export function testWave(lead: unknown): lead is boolean {

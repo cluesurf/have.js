@@ -19,115 +19,130 @@ export const VOID = null
 export const WAVE = true
 
 export function haveCode(
-  bond: unknown,
-  name: string,
-): asserts bond is string {
-  if (!testCode(bond)) {
-    throw halt('form_miss', { form: 'uuid', name })
+  lead: unknown,
+  call: string,
+): asserts lead is string {
+  if (!testCode(lead)) {
+    throw halt('form_miss', { call, need: 'uuid' })
   }
 }
 
 export function haveForm<V>(
   seed: unknown,
-  form: string,
-  test: (bond: any) => bond is V,
-  name: string,
+  need: string,
+  test: (lead: any) => lead is V,
+  call: string,
 ): asserts seed is V {
   if (!test(seed)) {
-    throw halt('form_miss', { form, name })
+    throw halt('form_miss', { call, need })
   }
 }
 
 export function haveList<T>(
-  bond: unknown,
-  name: string,
-): asserts bond is Array<T> {
-  if (!testList(bond)) {
-    throw halt('form_miss', { form: 'list', name })
+  lead: unknown,
+  call: string,
+): asserts lead is Array<T> {
+  if (!testList(lead)) {
+    throw halt('form_miss', { call, need: 'list' })
   }
 }
 
 export function haveMesh(
-  bond: unknown,
-  name: string,
-): asserts bond is Record<string, unknown> {
-  if (!testMesh(bond)) {
-    throw halt('form_miss', { form: 'mesh', name })
+  lead: unknown,
+  call: string,
+): asserts lead is Record<string, unknown> {
+  if (!testMesh(lead)) {
+    throw halt('form_miss', { call, need: 'mesh' })
+  }
+}
+
+export function haveRise(
+  lead: unknown,
+  call: string,
+): asserts lead is true {
+  if (!testRise(lead)) {
+    throw halt('form_miss', { call, need: 'wave' })
   }
 }
 
 export function haveText(
-  bond: unknown,
-  name: string,
-): asserts bond is string {
-  if (!testText(bond)) {
-    throw halt('form_miss', { form: 'text', name })
+  lead: unknown,
+  call: string,
+): asserts lead is string {
+  if (!testText(lead)) {
+    throw halt('form_miss', { call, need: 'text' })
   }
 }
 
 export function haveTree<Form>(
-  bond: any,
-  form: string,
+  lead: any,
+  need: string,
   test: Form,
-  name: string,
-): asserts bond is Form {
-  const formx = readForm(bond)
-  if (formx !== readForm(test)) {
-    throw halt('form_miss', { form, name })
+  call: string,
+): asserts lead is Form {
+  const form = readForm(lead)
+  if (form !== readForm(test)) {
+    throw halt('form_miss', { call, need })
   }
 
-  if (formx === 'object') {
-    for (const name in test) {
-      haveTree(bond[name], form, test[name], name)
+  if (form === 'object') {
+    for (const call in test) {
+      haveTree(lead[call], need, test[call], call)
     }
   }
 }
 
-export function haveWave<T>(
-  bond: unknown,
-  name: string,
-): asserts bond is Array<T> {
-  if (!testWave(bond)) {
-    throw halt('form_miss', { form: 'wave', name })
+export function haveWave(
+  lead: unknown,
+  call: string,
+): asserts lead is boolean {
+  if (!testWave(lead)) {
+    throw halt('form_miss', { call, need: 'wave' })
   }
 }
 
-export function readForm(bond: any) {
-  const form = typeof bond
-  if (form === 'object' && !bond) {
+export function readForm(lead: any) {
+  const form = typeof lead
+  if (form === 'object' && !lead) {
     return 'null'
   }
-  if (Array.isArray(bond)) {
+  if (Array.isArray(lead)) {
     return 'array'
   }
   return form
 }
 
-export function testCode(bond: unknown): bond is string {
-  return _.isString(bond) && validate(bond)
+export function testCode(lead: unknown): lead is string {
+  return _.isString(lead) && validate(lead)
 }
 
-export function testList<T>(bond: unknown): bond is Array<T> {
-  return _.isArray(bond)
+export function testList<T>(lead: unknown): lead is Array<T> {
+  return _.isArray(lead)
 }
 
-export function testMesh(bond: unknown): bond is object {
-  return _.isObject(bond)
+export function testMesh(
+  lead: unknown,
+): lead is Record<string, unknown> {
+  return _.isObject(lead)
 }
 
-export function testText(bond: unknown): bond is string {
-  return _.isString(bond)
+export function testRise(lead: unknown): lead is true {
+  return lead === true
 }
 
-export function testTree<Form>(bond: any, test: Form): bond is Form {
-  const form = readForm(bond)
+export function testText(lead: unknown): lead is string {
+  return _.isString(lead)
+}
+
+export function testTree<Form>(lead: any, test: Form): lead is Form {
+  const form = readForm(lead)
   if (form !== readForm(test)) {
     return false
   }
 
   if (form === 'object') {
-    for (const name in test) {
-      if (!testTree(bond[name], test[name])) {
+    for (const call in test) {
+      if (!testTree(lead[call], test[call])) {
         return false
       }
     }
@@ -136,6 +151,6 @@ export function testTree<Form>(bond: any, test: Form): bond is Form {
   return true
 }
 
-export function testWave<T>(bond: unknown): bond is boolean {
-  return _.isBoolean(bond)
+export function testWave(lead: unknown): lead is boolean {
+  return _.isBoolean(lead)
 }

@@ -4,7 +4,6 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import _ from 'lodash'
-import { validate } from 'uuid'
 
 import halt from './halt.js'
 
@@ -25,15 +24,6 @@ export function haveBindList<T>(
 ): asserts lead is T {
   if (!testBindList(lead, list)) {
     throw halt('list_miss', { call, need: list })
-  }
-}
-
-export function haveCode(
-  lead: unknown,
-  call: string,
-): asserts lead is string {
-  if (!testCode(lead)) {
-    throw halt('form_miss', { call, need: 'uuid' })
   }
 }
 
@@ -178,10 +168,6 @@ export function testBindList<T>(
   list: ReadonlyArray<T>,
 ): lead is T {
   return list.includes(lead as T)
-}
-
-export function testCode(lead: unknown): lead is string {
-  return _.isString(lead) && validate(lead)
 }
 
 export function testList<T>(lead: unknown): lead is Array<T> {

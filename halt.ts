@@ -1,74 +1,92 @@
-import { Link, HaltMesh } from '@tunebond/halt'
-import makeHalt, { TONE } from '@tunebond/halt-text'
-import { make4 } from '@tunebond/tone-code'
-import tint from '@tunebond/tint'
+import Kink, { KinkMesh } from '@tunebond/kink'
+import tint from '@tunebond/tint-text'
 
 const host = '@tunebond/have'
 
-export type HaveBase = {
+export type BaseLink = {
   call?: string
   lead?: unknown
   need?: Array<unknown> | unknown
   void?: boolean
 }
 
-export type HaveHaltList = {
-  lead: Array<HaltMesh>
+export type ListLink = {
+  lead: Array<KinkMesh>
 }
 
-const base = {
-  form_miss: {
-    code: 2,
-    note: (link: HaveBase) => `Form is undefined.`,
-  },
-  halt_list: {
-    code: 8,
-    note: (link: HaveHaltList) => `Multiple data errors.`,
-  },
-  link_form: {
-    code: 6,
-    note: (link: HaveBase) => `Link is invalid form.`,
-  },
-  link_miss: {
-    code: 7,
-    note: (link: HaveBase) => `Link is not valid.`,
-  },
-  link_need: {
-    code: 3,
-    note: (link: HaveBase) => `Link is required.`,
-  },
-  link_size: {
-    code: 4,
-    note: (link: HaveBase) => `Link size out of bounds.`,
-  },
-  link_take: {
-    code: 5,
-    note: (link: HaveBase) => `Link provided invalid value.`,
-  },
-  list_miss: {
-    code: 4,
-    note: (link: HaveBase) => `List does not contain item.`,
-  },
+type Base = {
+  form_miss: BaseLink
+  halt_list: BaseLink
+  link_form: BaseLink
+  link_miss: BaseLink
+  link_need: BaseLink
+  link_size: BaseLink
+  link_take: BaseLink
+  list_miss: BaseLink
 }
-
-type Base = typeof base
 
 type Name = keyof Base
 
-export const code = (code: number) => make4(BigInt(code))
+Kink.base(host, 'form_miss', (link: BaseLink) => ({
+  code: 2,
+  link,
+  note: `Form is undefined.`,
+}))
 
-export default function halt(form: Name, link: Link<Base, Name>) {
-  const head = makeHeadText(link)
-  return makeHalt({ base, code, form, head, host, link })
+Kink.base(host, 'halt_list', (link: BaseLink) => ({
+  code: 8,
+  link,
+  note: `Multiple data errors.`,
+}))
+
+Kink.base(host, 'link_form', (link: BaseLink) => ({
+  code: 6,
+  link,
+  note: `Link is invalid form.`,
+}))
+
+Kink.base(host, 'link_miss', (link: BaseLink) => ({
+  code: 7,
+  link,
+  note: `Link is not valid.`,
+}))
+
+Kink.base(host, 'link_need', (link: BaseLink) => ({
+  code: 3,
+  link,
+  note: `Link is required.`,
+}))
+
+Kink.base(host, 'link_size', (link: BaseLink) => ({
+  code: 4,
+  link,
+  note: `Link size out of bounds.`,
+}))
+
+Kink.base(host, 'link_take', (link: BaseLink) => ({
+  code: 5,
+  link,
+  note: `Link provided invalid value.`,
+}))
+
+Kink.base(host, 'list_miss', (link: BaseLink) => ({
+  code: 4,
+  link,
+  note: `List does not contain item.`,
+}))
+
+Kink.code(host, (code: number) => code.toString(16).padStart(4, '0'))
+
+export default function kink<N extends Name>(form: N, link?: Base[N]) {
+  return new Kink(Kink.makeBase(host, form, link))
 }
 
 function makeHeadText(link: Record<string, unknown>) {
   const list: Array<string> = []
 
-  const T = TONE.fall
-  const G = { tone: T.green }
-  const P = { tone: T.purple }
-  const H = { tone: T.gray }
+  const G = { tone: 'green' }
+  const P = { tone: 'blue' }
+  const H = { tone: 'brightBlack' }
 
   if (link.call) {
     list.push(

@@ -49,7 +49,6 @@
   "dependencies": {
     "@tunebond/kink": "^0.x.x",
     "@tunebond/kink-text": "^0.x.x",
-    "@tunebond/tint-text": "^0.x.x",
     "lodash": "^4.x.x"
   }
 }

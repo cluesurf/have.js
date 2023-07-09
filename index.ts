@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import _ from 'lodash'
 
-import halt from './halt.js'
+import kink from './halt.js'
 
 export const LIST: Array<any> = []
 
@@ -23,7 +23,7 @@ export function haveBindList<T>(
   call: string,
 ): asserts lead is T {
   if (!testBindList(lead, list)) {
-    throw halt('list_miss', { call, need: list })
+    throw kink('list_miss', { call, need: list })
   }
 }
 
@@ -34,7 +34,7 @@ export function haveForm<V>(
   call: string,
 ): asserts seed is V {
   if (!test(seed)) {
-    throw halt('form_miss', { call, need })
+    throw kink('form_miss', { call, need })
   }
 }
 
@@ -43,7 +43,7 @@ export function haveList<T>(
   call: string,
 ): asserts lead is Array<T> {
   if (!testList(lead)) {
-    throw halt('form_miss', { call, need: 'list' })
+    throw kink('form_miss', { call, need: 'list' })
   }
 }
 
@@ -52,7 +52,7 @@ export function haveMark(
   call: string,
 ): asserts lead is number {
   if (!testMark(lead)) {
-    throw halt('form_miss', { call, need: 'mark' })
+    throw kink('form_miss', { call, need: 'mark' })
   }
 }
 
@@ -61,7 +61,7 @@ export function haveMesh(
   call: string,
 ): asserts lead is Record<string, unknown> {
   if (!testMesh(lead)) {
-    throw halt('form_miss', { call, need: 'mesh' })
+    throw kink('form_miss', { call, need: 'mesh' })
   }
 }
 
@@ -70,7 +70,7 @@ export function haveRise(
   call: string,
 ): asserts lead is true {
   if (!testRise(lead)) {
-    throw halt('form_miss', { call, need: 'wave' })
+    throw kink('form_miss', { call, need: 'wave' })
   }
 }
 
@@ -79,7 +79,7 @@ export function haveText(
   call: string,
 ): asserts lead is string {
   if (!testText(lead)) {
-    throw halt('form_miss', { call, need: 'text' })
+    throw kink('form_miss', { call, need: 'text' })
   }
 }
 
@@ -91,7 +91,7 @@ export function haveTree<Form>(
 ): asserts lead is Form {
   const form = readForm(lead)
   if (form !== readForm(test)) {
-    throw halt('form_miss', { call, need })
+    throw kink('form_miss', { call, need })
   }
 
   if (form === 'object') {
@@ -106,7 +106,7 @@ export function haveWave(
   call: string,
 ): asserts lead is boolean {
   if (!testWave(lead)) {
-    throw halt('form_miss', { call, need: 'wave' })
+    throw kink('form_miss', { call, need: 'wave' })
   }
 }
 
@@ -130,7 +130,7 @@ export function seekMark(
     if (testVoid(lead) || testMark(lead)) {
       return
     } else {
-      throw halt('form_miss', { call, need: 'mark', void: true })
+      throw kink('form_miss', { call, need: 'mark', void: true })
     }
   }
 }
@@ -144,7 +144,7 @@ export function seekText(
     if (testVoid(lead) || testText(lead)) {
       return
     } else {
-      throw halt('form_miss', { call, need: 'text', void: true })
+      throw kink('form_miss', { call, need: 'text', void: true })
     }
   }
 }
@@ -158,7 +158,7 @@ export function seekWave(
     if (testVoid(lead) || testWave(lead)) {
       return
     } else {
-      throw halt('form_miss', { call, need: 'wave', void: true })
+      throw kink('form_miss', { call, need: 'wave', void: true })
     }
   }
 }

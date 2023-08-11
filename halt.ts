@@ -1,6 +1,6 @@
-import Kink, { KinkMesh } from '@tunebond/kink'
+import Kink, { KinkMesh } from '@nerdbond/kink'
 
-const host = '@tunebond/have'
+const host = '@nerdbond/have'
 
 export type BaseLink = {
   call?: string

@@ -1,5 +1,5 @@
 {
-  "name": "@tunebond/have",
+  "name": "@nerdbond/have",
   "type": "module",
   "version": "0.2.0",
   "main": "./make/index.js",
@@ -47,8 +47,8 @@
     "tsx": "^3.12.7"
   },
   "dependencies": {
-    "@tunebond/kink": "^0.x.x",
-    "@tunebond/kink-text": "^0.x.x",
+    "@nerdbond/kink": "^0.x.x",
+    "@nerdbond/kink-text": "^0.x.x",
     "lodash": "^4.x.x"
   }
 }

@@ -5,13 +5,13 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@tunebond/kink':
+  '@nerdbond/kink':
     specifier: ^0.x.x
     version: 0.0.1
-  '@tunebond/kink-text':
+  '@nerdbond/kink-text':
     specifier: ^0.x.x
     version: 0.0.1
-  '@tunebond/tint-text':
+  '@nerdbond/tint-text':
     specifier: ^0.x.x
     version: 0.0.1
   lodash:
@@ -749,21 +749,21 @@ packages:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
     dev: true
 
-  /@tunebond/kink-text@0.0.1:
+  /@nerdbond/kink-text@0.0.1:
     resolution: {integrity: sha512-JlhjmqtRLhnGpn810PtNFx+OiAG9P+UOWxQLlZ5hf3TyE8osn9fTFrczAl0HuiR1giEo81uaKDojh4GDiwLKSA==}
     dependencies:
       '@cspotcode/source-map': 0.8.0
-      '@tunebond/kink': 0.0.1
-      '@tunebond/tint-text': 0.0.1
+      '@nerdbond/kink': 0.0.1
+      '@nerdbond/tint-text': 0.0.1
     dev: false
 
-  /@tunebond/kink@0.0.1:
+  /@nerdbond/kink@0.0.1:
     resolution: {integrity: sha512-f5o+ILJyGbazFT4ZAFjiSsKOlZlWWCTAceVyr6wgSxoGFm/PmV7RtqrufJewzSYzc+fj+OQSW38Uyx7Iygr27Q==}
     dependencies:
       ts-custom-error: 3.3.1
     dev: false
 
-  /@tunebond/tint-text@0.0.1:
+  /@nerdbond/tint-text@0.0.1:
     resolution: {integrity: sha512-92C7+f8zGMtPSWDD8+V/fxZhBCc5Hm0m0gRzm+ASb3v8G8jx6CIF1B7JGgv+eKy5UjZo0NXlXbCmScy5XtGDjA==}
     dependencies:
       chalk: 5.3.0

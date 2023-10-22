@@ -1,5 +1,5 @@
 {
-  "name": "@nerdbond/have",
+  "name": "@wavebond/have",
   "type": "module",
   "version": "0.2.0",
   "main": "./make/index.js",
@@ -17,7 +17,7 @@
     "scan": "concurrently --kill-others \"tsc -w\" \"tsc-alias -w\"",
     "lint": "eslint --ext .ts ./make",
     "lint:fix": "npm run lint -- --fix",
-    "test": "node make/test.js",
+    "test": "tsx test.ts",
     "host": "pnpm make && npm publish --access=public"
   },
   "devDependencies": {
@@ -47,8 +47,8 @@
     "tsx": "^3.12.7"
   },
   "dependencies": {
-    "@nerdbond/kink": "^0.x.x",
-    "@nerdbond/kink-text": "^0.x.x",
+    "@wavebond/kink": "^0.x.x",
+    "@wavebond/kink-text": "^0.x.x",
     "lodash": "^4.x.x"
   }
 }

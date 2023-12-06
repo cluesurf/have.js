@@ -1,5 +1,5 @@
 {
-  "name": "@wavebond/have",
+  "name": "@textsurf/have",
   "type": "module",
   "version": "0.2.0",
   "main": "./make/index.js",
@@ -47,8 +47,8 @@
     "tsx": "^3.12.7"
   },
   "dependencies": {
-    "@wavebond/kink": "^0.x.x",
-    "@wavebond/kink-text": "^0.x.x",
+    "@textsurf/kink": "^0.x.x",
+    "@textsurf/kink-text": "^0.x.x",
     "lodash": "^4.x.x"
   }
 }

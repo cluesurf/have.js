@@ -1,5 +1,5 @@
 {
-  "name": "@textsurf/have",
+  "name": "@termsurf/have",
   "type": "module",
   "version": "0.2.0",
   "main": "./make/index.js",
@@ -47,8 +47,8 @@
     "tsx": "^3.12.7"
   },
   "dependencies": {
-    "@textsurf/kink": "^0.x.x",
-    "@textsurf/kink-text": "^0.x.x",
+    "@termsurf/kink": "^0.x.x",
+    "@termsurf/kink-text": "^0.x.x",
     "lodash": "^4.x.x"
   }
 }

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { makeBaseKinkText, makeKinkText } from '@nerdbond/kink-text'
+import { makeBaseKinkText, makeKinkText } from '@termsurf/kink-text'
 import { haveText, testText } from './index.js'
-import Kink from '@nerdbond/kink'
+import Kink from '@termsurf/kink'
 
 // https://nodejs.org/api/errors.html
 process.on('uncaughtException', err => {

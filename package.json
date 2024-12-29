@@ -1,5 +1,5 @@
 {
-  "name": "@termsurf/have",
+  "name": "@cluesurf/have",
   "type": "module",
   "version": "0.2.0",
   "main": "./make/index.js",
@@ -47,8 +47,8 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "@termsurf/kink": "^0.1.2",
-    "@termsurf/kink-text": "^0.x.x",
+    "@cluesurf/kink": "^0.1.2",
+    "@cluesurf/kink-text": "^0.x.x",
     "lodash": "^4.x.x"
   }
 }
